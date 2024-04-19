@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Practica DNR</title>
+    </h:head>
+    <h1>UNIVERSIDAD DE LEÓN</h1>
+    <h:body>
+        <div class="card">
+        <h:form>
+            <p:messages id="messages">
+                <p:autoUpdate/>
+            </p:messages>
+            <h:panelGrid id="grid">
+                <p:fieldset legend="Datos personales">
+                    <h:panelGrid columns="3" cellpadding="7">
+                        <p:outputLabel for="nombre" value="Nombre:"/>
+                        <p:inputText id="nombre" required="true" value="#{altaUsuarioController.persona.nombre}" requiredMessage="Nombre obligatorio"/>
+                        <p:message for="nombre"/>
+
+                        <p:outputLabel for="apellido1" value="Primer apellido: "/>
+                        <p:inputText id="apellido1" required="true" value="#{altaUsuarioController.persona.apellido1}" requiredMessage="Primer apellido obligatorio"/>
+                        <p:message for="apellido1"/>
+
+                        <p:outputLabel for="apellido2" value="Segundo apellido: "/>
+                        <p:inputText id="apellido2" required="true" value="#{altaUsuarioController.persona.apellido2}" requiredMessage="Segundo apellido obligatorio"/>
+                        <p:message for="apellido2" display="text"/>
+
+                        <p:outputLabel for="sexo" value="Sexo: "/>
+                        <p:selectOneMenu id="sexo" value="#{altaUsuarioController.persona.sexo}">
+                            <f:selectItem itemLabel="M" itemValue="M"/>
+                            <f:selectItem itemLabel="F" itemValue="F"/>
+                        </p:selectOneMenu>
+                        <br/>
+
+                        <p:outputLabel value="Fecha de nacimiento: " />
+                        <h:outputScript library="js" name="spanishcalendar.js" />
+                        <p:datePicker required="true" value="#{altaUsuarioController.persona.fechaNacimiento}" id="date" showIcon="true" style="width:auto" locale="es" requiredMessage="Fecha obligatorio"/></h:panelGrid>
+                </p:fieldset>
+
+                <p:fieldset legend="Datos de acceso">
+                    <h:panelGrid columns="3" cellpadding="7">
+                        <p:outputLabel for="rol" value="Rol: "/>
+                        <p:selectOneMenu id="rol" value="#{altaUsuarioController.rol.idRol}" label="Roles" filter="true" dynamic="true" style="width:100%">
+                            <f:selectItems value="#{altaUsuarioController.listaRoles}" var="rolitem" itemLabel="#{rolitem.descripcion}" itemValue="#{rolitem.idRol}"/>
+                        </p:selectOneMenu>
+                        <br/>
+                        <p:outputLabel for="userName" value="Nombre de usuario: "/>
+                        <p:inputText id="userName" required="true" value="#{altaUsuarioController.usuario.user}" requiredMessage="Nombre de usuario obligatorio"/>
+                        <p:message for="userName"/>
+
+                        <p:outputLabel for="password" value="Contraseña: "/>
+                        <p:password id="password" required="true" value="#{altaUsuarioController.usuario.password}" requiredMessage="Contraseña obligatoria"/>
+                    </h:panelGrid>
+                </p:fieldset>
+            </h:panelGrid>
+            <p:commandButton id="submitButton" value="Registrarse" action="#{altaUsuarioController.insertarUsuario()}" update="grid"/>
+        </h:form>
+    </div>
+    </h:body>
+</html>
